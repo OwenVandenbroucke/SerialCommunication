@@ -120,5 +120,68 @@ namespace SerialCommunication
                 buttonConnect.Text = "Connect";
             }
         }
+
+        private void checkBoxDigital2_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (serialPortArduino.IsOpen)
+                {
+                    string commando; // set d2 high of low
+                    if (checkBoxDigital2.Checked) commando = "set d2 high";
+                    else commando = "set d2 low";
+                    serialPortArduino.WriteLine(commando);
+                }
+            }
+            catch (Exception exeption)
+            {
+                labelStatus.Text = "Error:" + exeption.Message;
+                serialPortArduino.Close();
+                radioButtonVerbonden.Checked = false;
+                buttonConnect.Text = "Connect";
+            }
+        }
+
+        private void checkBoxDigital3_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (serialPortArduino.IsOpen)
+                {
+                    string commando; // set d2 high of low
+                    if (checkBoxDigital3.Checked) commando = "set d3 high";
+                    else commando = "set d3 low";
+                    serialPortArduino.WriteLine(commando);
+                }
+            }
+            catch (Exception exeption)
+            {
+                labelStatus.Text = "Error:" + exeption.Message;
+                serialPortArduino.Close();
+                radioButtonVerbonden.Checked = false;
+                buttonConnect.Text = "Connect";
+            }
+        }
+
+        private void checkBoxDigital4_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (serialPortArduino.IsOpen)
+                {
+                    string commando; // set d2 high of low
+                    if (checkBoxDigital4.Checked) commando = "set d4 high";
+                    else commando = "set d4 low";
+                    serialPortArduino.WriteLine(commando);
+                }
+            }
+            catch (Exception exeption)
+            {
+                labelStatus.Text = "Error:" + exeption.Message;
+                serialPortArduino.Close();
+                radioButtonVerbonden.Checked = false;
+                buttonConnect.Text = "Connect";
+            }
+        }
     }
 }
