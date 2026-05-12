@@ -18,6 +18,9 @@ namespace SerialCommunication
         public Form1()
         {
             InitializeComponent();
+            // subscribe to tab changes and timer tick
+            this.tabControl.SelectedIndexChanged += this.tabControl_SelectedIndexChanged;
+            this.timerOefening3.Tick += this.timerOefening3_Tick;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -241,5 +244,78 @@ namespace SerialCommunication
                 buttonConnect.Text = "Connect";
             }
         }
+        private void radioButtonDigital5_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (serialPortArduino.IsOpen)
+                {
+                    if (radioButtonDigital5.Checked)
+                    {
+                        serialPortArduino.WriteLine("set d5 mode digital");
+                    }
+                    else
+                    {
+                        serialPortArduino.WriteLine("set d5 mode pwm");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                labelStatus.Text = "Error:" + ex.Message;
+                try { serialPortArduino.Close(); } catch { }
+                radioButtonVerbonden.Checked = false;
+                buttonConnect.Text = "Connect";
+                timerOefening3.Enabled = false;
+            }
+        }
+
+        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            timerOefening3.Enabled = (tabControl.SelectedIndex == 3); // alleen oefenen 3 heeft een timer nodig
+        }
+
+        private void timerOefening3_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (serialPortArduino.IsOpen)
+                {
+                    serialPortArduino.ReadExisting(); // leegmaken van de buffer
+                    string commando = "get d5";
+                    serialPortArduino.WriteLine(commando);
+                    string antwoord = serialPortArduino.ReadLine();
+                    antwoord = antwoord.TrimEnd();
+                    antwoord = antwoord.Substring(4);
+                    radioButtonDigital5.Checked = (antwoord == "1");
+
+                    commando = "get d6";
+                    serialPortArduino.WriteLine(commando);
+                    antwoord = serialPortArduino.ReadLine();
+                    antwoord = antwoord.TrimEnd();
+                    antwoord = antwoord.Substring(4);
+                    radioButtonDigital6.Checked = (antwoord == "1");
+
+                    commando = "get d7";
+                    serialPortArduino.WriteLine(commando);
+                    antwoord = serialPortArduino.ReadLine();
+                    antwoord = antwoord.TrimEnd();
+                    antwoord = antwoord.Substring(4);
+                    radioButtonDigital7.Checked = (antwoord == "1");
+
+                }
+                    
+            }
+            catch (Exception ex)
+            {
+                labelStatus.Text = "Error:" + ex.Message;
+                try { serialPortArduino.Close(); } catch { }
+                radioButtonVerbonden.Checked = false;
+                buttonConnect.Text = "Connect";
+                timerOefening3.Enabled = false;
+            }
+        }
+
+        
     }
 }

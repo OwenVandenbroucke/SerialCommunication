@@ -90,6 +90,7 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.labelStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.serialPortArduino = new System.IO.Ports.SerialPort(this.components);
+            this.timerOefening3 = new System.Windows.Forms.Timer(this.components);
             this.tabControl.SuspendLayout();
             this.tabPageInstellingen.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -725,7 +726,7 @@
             // 
             this.radioButtonDigital5.AutoCheck = false;
             this.radioButtonDigital5.AutoSize = true;
-            this.radioButtonDigital5.Location = new System.Drawing.Point(65, 146);
+            this.radioButtonDigital5.Location = new System.Drawing.Point(62, 146);
             this.radioButtonDigital5.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonDigital5.Name = "radioButtonDigital5";
             this.radioButtonDigital5.Size = new System.Drawing.Size(76, 20);
@@ -733,6 +734,7 @@
             this.radioButtonDigital5.TabStop = true;
             this.radioButtonDigital5.Text = "Digital 5";
             this.radioButtonDigital5.UseVisualStyleBackColor = true;
+            this.radioButtonDigital5.CheckedChanged += new System.EventHandler(this.radioButtonDigital5_CheckedChanged);
             // 
             // pictureBox3
             // 
@@ -873,6 +875,10 @@
             this.serialPortArduino.ReadTimeout = 1000;
             this.serialPortArduino.WriteTimeout = 1000;
             // 
+            // timerOefening3
+            // 
+            this.timerOefening3.Interval = 1000;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -985,6 +991,7 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel labelStatus;
         private System.IO.Ports.SerialPort serialPortArduino;
+        private System.Windows.Forms.Timer timerOefening3;
     }
 }
 
